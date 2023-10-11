@@ -1,36 +1,39 @@
 let btnMenu=document.querySelector(".nav button")
 let menu=document.querySelector(".nav .link-group")
+
 const listcandidat = document.getElementById("cand")
-const closerCand  = listcandidat.querySelector("#cand-close")
+const closerCand  =(listcandidat)?listcandidat.querySelector("#cand-close"):null
 const opener = document.querySelector(".link-group #liste_op")
-var state_list = getComputedStyle(listcandidat).display
+var state_list 
 btnMenu.onclick=function(){
 
      if (menu.style.left== "0%"){
      	menu.style.left="-100%"
      }else menu.style.left="0%"
 }
+if(listcandidat){
+     
+     opener.addEventListener("click",function(e){
 
-opener.addEventListener("click",function(e){
+          e.preventDefault()
+          state_list = getComputedStyle(listcandidat).display
+          if(state_list=="none"){
 
-     e.preventDefault()
-     state_list = getComputedStyle(listcandidat).display
-     if(state_list=="none"){
+               listcandidat.style.display = "block"
+               let m = parseInt(getComputedStyle(menu).left,10)
+               if(m>=0){
 
-          listcandidat.style.display = "block"
-          let m = parseInt(getComputedStyle(menu).left,10)
-          if(m>=0){
-
-               menu.style.left = "-100%"
+                    menu.style.left = "-100%"
+               }
           }
-     }
-})
+     })
 
-closerCand.addEventListener("click",function(){
+     closerCand.addEventListener("click",function(){
 
-     state_list = getComputedStyle(listcandidat).display
-     if(state_list == "block"){
+          state_list = getComputedStyle(listcandidat).display
+          if(state_list == "block"){
 
-          listcandidat.style.display = "none"
-     }
-})
+               listcandidat.style.display = "none"
+          }
+     })
+}
